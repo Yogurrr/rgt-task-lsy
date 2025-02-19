@@ -80,7 +80,6 @@ const Booklist: FC = () => {
             <div style={{ paddingLeft: '74%' }}>
                 <Button name='도서 추가' onClick={openModal}></Button>
             </div>
-            <div style={{ textAlign: 'center' }}>검색 부분</div>
             <Table data={currentData ?? []}></Table>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1%' }}>
                 <button
