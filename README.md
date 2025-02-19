@@ -15,7 +15,7 @@ https://rgt-task-lsy.vercel.app/
 
 ## 주요 기능
 ### 책 목록 조회
-![Image](https://github.com/user-attachments/assets/f4a49066-443e-4ae2-835e-5a3713be8fde)
+![Image](https://github.com/user-attachments/assets/cd1d47fa-ccb5-4266-bc73-2c070c1793af)
 ### 책 상세 정보 조회
 ![Image](https://github.com/user-attachments/assets/6cf99279-926b-4519-9d93-55960b4056c4)
 ### 책 추가
