@@ -17,17 +17,39 @@ const Booklist: FC = () => {
     const [price, setPrice] = useState<number | string>('');
     const [quantity, setQuantity] = useState<number | string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [keyword, setKeyword] = useState('');
+
+    // 타입 지정
+    type SelectOption = 'title' | 'author';
+    const [selectOption, setSelectOption] = useState<SelectOption>('title');
+    const [filteredBooks, setFilteredBooks] = useState(books);
 
     if (error) return <p>에러 발생: {error}</p>;
-    
-    // 테이블
-    const rowsPerPage = 10;
 
+    useEffect(() => {
+        handleSearch();
+    }, [keyword, selectOption]);
+
+    // 필터링 함수
+    const handleSearch = () => {
+        if (!keyword) {
+            setFilteredBooks(books); // 검색어가 없으면 전체 목록을 표시
+        } else {
+            const filtered = books?.filter((book) => {
+                const targetValue = book[selectOption].toLowerCase();
+                return targetValue.includes(keyword.toLowerCase());
+            });
+            setFilteredBooks(filtered ?? []);
+        }
+    };
+    
+    // 페이지네이션
+    const rowsPerPage = 10;
     const indexOfLastItem = currentPage * rowsPerPage;
     const indexOfFirstItem = indexOfLastItem - rowsPerPage;
 
-    const currentData = books?.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = books ? Math.ceil(books.length / rowsPerPage) : 0;
+    const currentData = filteredBooks?.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = filteredBooks ? Math.ceil(filteredBooks.length / rowsPerPage) : 0;
 
     const handleNext = () => {
         if (currentPage < totalPages) {
@@ -75,10 +97,28 @@ const Booklist: FC = () => {
         }
     };
 
+    // select option 처리
+    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectOption(event.target.value as SelectOption);
+    };
+
     return(
         <>
             <div style={{ paddingLeft: '74%' }}>
                 <Button name='도서 추가' onClick={openModal}></Button>
+            </div>
+            <div style={{ margin: '1% 0 1% 20%' }}>
+                <select style={{ marginRight: '1%' }} value={selectOption} onChange={handleSelect}>
+                    <option value="title">제목</option>
+                    <option value="author">저자</option>
+                </select>
+                <input
+                    type="text"
+                    placeholder="검색"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    style={{ width: '69%', height: '35px', marginRight: '1%', borderRadius: '5px' }}
+                />
             </div>
             <Table data={currentData ?? []}></Table>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1%' }}>
