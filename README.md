@@ -7,9 +7,10 @@
 - node 16.20.2
 - postgreSQL (supabase)
 ![Image](https://github.com/user-attachments/assets/8d158af8-2b78-472f-b807-25cff729548a)
+![Image](https://github.com/user-attachments/assets/d4dc8baf-e961-43a9-b589-018bbf4dd8e4)
 
 ## 배포
-- **vercel**을 이용
+**vercel**을 이용
 
 ## 프로젝트 주소
 https://rgt-task-lsy.vercel.app/
