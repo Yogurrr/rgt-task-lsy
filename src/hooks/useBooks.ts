@@ -20,12 +20,12 @@ const useBooks = (bookId?: number) => {
             setLoading(true);
 
             if (bookId) {
-                // 특정 ID에 해당하는 책 가져오기
+                // 특정 ID에 해당하는 도서 가져오기
                 const { data, error } = await supabase.from("books").select("*").eq("id", bookId).single();
                 if (error) setError(error.message);
                 else setBook(data);
             } else {
-                // 전체 책 목록 가져오기
+                // 전체 도서 목록 가져오기
                 const { data, error } = await supabase.from("books").select("*");
                 if (error) setError(error.message);
                 else setBooks(data);
