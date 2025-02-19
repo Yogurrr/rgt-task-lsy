@@ -18,17 +18,23 @@ const Booklist: FC = () => {
     const [quantity, setQuantity] = useState<number | string>('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [keyword, setKeyword] = useState('');
+    const [filteredBooks, setFilteredBooks] = useState(books);
 
     // 타입 지정
     type SelectOption = 'title' | 'author';
     const [selectOption, setSelectOption] = useState<SelectOption>('title');
-    const [filteredBooks, setFilteredBooks] = useState(books);
-
-    if (error) return <p>에러 발생: {error}</p>;
 
     useEffect(() => {
         handleSearch();
     }, [keyword, selectOption]);
+
+    useEffect(() => {
+        if (books) {
+            setFilteredBooks(books);
+        }
+    }, [books]);
+
+    if (error) return <p>에러 발생: {error}</p>;
 
     // 필터링 함수
     const handleSearch = () => {
