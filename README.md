@@ -6,6 +6,7 @@
 - Next.js 13.5.6
 - node 16.20.2
 - postgreSQL (supabase)
+![Image](https://github.com/user-attachments/assets/8d158af8-2b78-472f-b807-25cff729548a)
 
 ## 배포
 - **vercel**을 이용
