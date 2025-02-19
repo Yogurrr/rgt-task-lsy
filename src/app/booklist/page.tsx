@@ -11,11 +11,16 @@ import { useCreateBook } from '@/src/hooks/useCreateBook';
 const Booklist: FC = () => {
     const { books, error } = useBooks();
     const createBook = useCreateBook();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [price, setPrice] = useState<number | string>('');
+    const [quantity, setQuantity] = useState<number | string>('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     if (error) return <p>에러 발생: {error}</p>;
     
     // 테이블
-    const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
 
     const indexOfLastItem = currentPage * rowsPerPage;
@@ -37,7 +42,6 @@ const Booklist: FC = () => {
     };
 
     // 모달 띄우기
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -47,16 +51,11 @@ const Booklist: FC = () => {
     };
 
     // 도서 추가
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [price, setPrice] = useState<number | string>('');
-    const [quantity, setQuantity] = useState<number | string>('');
-
     const addBook = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!title || !author || !price || !quantity) {
-            alert('모든 필드를 입력해주세요.');
+            alert('모든 항목을 입력해주세요.');
             return;
         }
 

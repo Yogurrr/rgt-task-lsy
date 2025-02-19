@@ -16,36 +16,13 @@ interface Book {
 }
 
 const BookDetails = () => {
-    const { updateBook } = useUpdateBook();
-    const { deleteBook } = useDeleteBook();
-
     const params = useParams();
     const id = params.id;
-
     const bookId = id ? parseInt(id as string, 10) : undefined;
     const { book, error } = useBooks(bookId);
-
-    if (error) return <p>에러 발생: {error}</p>;
-
-    // 삭제 버튼
+    const { updateBook } = useUpdateBook();
+    const { deleteBook } = useDeleteBook();
     const [isDeleted, setIsDeleted] = useState(false);
-    const deleteBtn = async (id: number) => {
-        const result = await deleteBook(id);
-        if(result.success) {
-            setIsDeleted(true);
-            alert('책이 삭제되었습니다.');
-            location.href = '/booklist';
-        } else {
-            alert('책 삭제에 실패했습니다.');
-        }
-    };
-
-    // 목록으로 돌아가기 버튼
-    const go2list = () => {
-        location.href = '/booklist';
-    };
-
-    // 수정
     const [isEditing, setIsEditing] = useState(false);
     const [updatedTitle, setUpdatedTitle] = useState(book?.title);
     const [updatedAuthor, setUpdatedAuthor] = useState(book?.author);
@@ -62,6 +39,25 @@ const BookDetails = () => {
         }
     }, [book]);
 
+    if (error) return <p>에러 발생: {error}</p>;
+
+    // 삭제 버튼
+    const deleteBtn = async (id: number) => {
+        const result = await deleteBook(id);
+        if(result.success) {
+            setIsDeleted(true);
+            alert('책이 삭제되었습니다.');
+            location.href = '/booklist';
+        } else {
+            alert('책 삭제에 실패했습니다.');
+        }
+    };
+
+    // 목록으로 돌아가기 버튼
+    const go2list = () => {
+        location.href = '/booklist';
+    };
+
     // 수정 버튼 클릭 시 폼으로 전환
     const toggleEdit = () => {
         setIsEditing(true);
@@ -72,7 +68,7 @@ const BookDetails = () => {
         e.preventDefault();
         
         if (!updatedTitle || !updatedAuthor || !updatedPrice || !updatedQuantity) {
-            alert('모든 필드를 입력해주세요.');
+            alert('모든 항목 입력해주세요.');
             return;
         }
 
