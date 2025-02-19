@@ -74,10 +74,6 @@ const Booklist: FC = () => {
             window.location.reload();
         }
     };
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        addBook(new Event("submit") as React.FormEvent<HTMLFormElement>); // 강제 변환
-    };
 
     return(
         <>
@@ -107,7 +103,7 @@ const Booklist: FC = () => {
             </div>
 
             {/* 모달 부분 */}
-            <AddBookModal isOpen={isModalOpen} onConfirm={handleClick} onClose={closeModal} title="도서 추가">
+            <AddBookModal isOpen={isModalOpen} onConfirm={addBook} onClose={closeModal} title="도서 추가">
                 <form>
                     <table style={{ marginLeft: '10%' }}>
                         <tbody>
