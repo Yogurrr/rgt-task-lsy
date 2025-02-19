@@ -1,6 +1,7 @@
 import { supabase } from '@/utils/supabase';
 
-export const useDeleteBook = async (id: number) => {
+export const useDeleteBook = () => {
+  const deleteBook = async(id: number) => {
     const { data, error } = await supabase
       .from('books')
       .delete()
@@ -12,4 +13,7 @@ export const useDeleteBook = async (id: number) => {
     }
   
     return { success: true, data };
+  }
+  
+  return { deleteBook };
 };

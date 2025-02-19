@@ -1,6 +1,7 @@
 import { supabase } from '@/utils/supabase';
 
-export const useCreateBook = async (title: string, author: string, price: number, quantity: number) => {
+export const useCreateBook = () => {
+  const createBook = async (title: string, author: string, price: number, quantity: number) => {
     const { data, error } = await supabase
       .from('books')
       .insert([
@@ -14,4 +15,7 @@ export const useCreateBook = async (title: string, author: string, price: number
     }
   
     return { success: true, data };
+  }
+
+  return createBook;
 };

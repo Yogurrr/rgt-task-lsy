@@ -26,8 +26,9 @@ const BookDetails = () => {
 
     // 삭제 버튼
     const [isDeleted, setIsDeleted] = useState(false);
+    const { deleteBook } = useDeleteBook();
     const deleteBtn = async (id: number) => {
-        const result = await useDeleteBook(id);
+        const result = await deleteBook(id);
         if(result.success) {
             setIsDeleted(true);
             alert('책이 삭제되었습니다.');
@@ -65,6 +66,7 @@ const BookDetails = () => {
     };
 
     // 수정 완료 시 서버로 데이터 전송
+    const { updateBook } = useUpdateBook();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -73,7 +75,7 @@ const BookDetails = () => {
             return;
         }
 
-        const { data, error } = await useUpdateBook(Number(id), updatedTitle ?? "", updatedAuthor ?? "", Number(updatedPrice), Number(updatedQuantity));
+        const { data, error } = await updateBook(Number(id), updatedTitle ?? "", updatedAuthor ?? "", Number(updatedPrice), Number(updatedQuantity));
 
         if (error) {
             alert('책 정보를 수정하는데 실패했습니다: ' + error.message);

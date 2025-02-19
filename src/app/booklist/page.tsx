@@ -51,6 +51,7 @@ const Booklist: FC = () => {
     const [price, setPrice] = useState<number | string>('');
     const [quantity, setQuantity] = useState<number | string>('');
     const [message, setMessage] = useState('');
+    const createBook = useCreateBook();
 
     const addBook = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -60,7 +61,7 @@ const Booklist: FC = () => {
             return;
         }
 
-        const { data, error } = await useCreateBook(title, author, Number(price), Number(quantity));
+        const { data, error } = await createBook(title, author, Number(price), Number(quantity));
 
         if (error) {
             alert('책을 추가하는데 실패했습니다: ' + error.message);
