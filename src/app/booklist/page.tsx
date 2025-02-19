@@ -10,6 +10,7 @@ import { useCreateBook } from '@/src/hooks/useCreateBook';
 
 const Booklist: FC = () => {
     const { books, error } = useBooks();
+    const createBook = useCreateBook();
 
     if (error) return <p>에러 발생: {error}</p>;
     
@@ -50,8 +51,6 @@ const Booklist: FC = () => {
     const [author, setAuthor] = useState('');
     const [price, setPrice] = useState<number | string>('');
     const [quantity, setQuantity] = useState<number | string>('');
-    const [message, setMessage] = useState('');
-    const createBook = useCreateBook();
 
     const addBook = async (e: React.FormEvent) => {
         e.preventDefault();

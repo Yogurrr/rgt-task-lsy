@@ -16,6 +16,9 @@ interface Book {
 }
 
 const BookDetails = () => {
+    const { updateBook } = useUpdateBook();
+    const { deleteBook } = useDeleteBook();
+
     const params = useParams();
     const id = params.id;
 
@@ -26,7 +29,6 @@ const BookDetails = () => {
 
     // 삭제 버튼
     const [isDeleted, setIsDeleted] = useState(false);
-    const { deleteBook } = useDeleteBook();
     const deleteBtn = async (id: number) => {
         const result = await deleteBook(id);
         if(result.success) {
@@ -66,7 +68,6 @@ const BookDetails = () => {
     };
 
     // 수정 완료 시 서버로 데이터 전송
-    const { updateBook } = useUpdateBook();
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
